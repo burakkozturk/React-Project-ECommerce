@@ -12,6 +12,6 @@ export function AddToCart(product){
 export function RemoveFromCart(product){
     return {
         type : REMOVE_FROM_CART,
-        playload : product 
+        payload : product 
     }
 }

@@ -4,8 +4,9 @@ import { NavLink } from 'react-router-dom';
 import { Dropdown, DropdownDivider, DropdownItem } from 'semantic-ui-react'
 
 export default function CartSummary() {
-    const { cartItems } = useSelector(state => state)
-    
+    const cartItems = useSelector(state => state.cart.cartItems);
+
+
 
     return (
         <div>

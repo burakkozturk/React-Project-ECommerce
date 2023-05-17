@@ -4,6 +4,7 @@ import ProductService from '../services/productService'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { AddToCart } from '../store/actions/cartActions'
+import { useSelector } from 'react-redux'
 
 export default function ProductList() {
     const dispatch = useDispatch()
@@ -14,9 +15,11 @@ export default function ProductList() {
         productService.getProducts().then(result => setProducts(result.data))
     }, [])
 
+    const cart = useSelector(state => state.cart);
+
     const handleAddToCart = (product) => {
         console.log("Ürün sepete eklendi:", product);
-        dispatch(AddToCart(product))
+        dispatch(AddToCart({ product: product, quantity: 1 })); // Quantity değerini ekleyin
     }
 
     return (
