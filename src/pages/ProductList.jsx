@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { Icon, Menu, Table } from 'semantic-ui-react'
+import { Icon, Menu, Table, Button } from 'semantic-ui-react'
 import ProductService from '../services/productService'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { AddToCart } from '../store/actions/cartActions'
 
 export default function ProductList() {
-    const [products, SetProducts] = useState([])
-    //lifecycle hook
+    const dispatch = useDispatch()
+    const [products, setProducts] = useState([])
+
     useEffect(() => {
         let productService = new ProductService()
-        productService.getProducts().then(result => SetProducts(result.data))
-    })
+        productService.getProducts().then(result => setProducts(result.data))
+    }, [])
+
+    const handleAddToCart = (product) => {
+        console.log("Ürün sepete eklendi:", product);
+        dispatch(AddToCart(product))
+    }
 
     return (
         <div>
@@ -18,18 +27,21 @@ export default function ProductList() {
                         <Table.HeaderCell>Ürün Adı</Table.HeaderCell>
                         <Table.HeaderCell>Ürün Sahibi</Table.HeaderCell>
                         <Table.HeaderCell>Ürün Kategori</Table.HeaderCell>
+                        <Table.HeaderCell></Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
                 <Table.Body>
                     {products?.length && products.map((product) => (
-                            <Table.Row>
-                                <Table.Cell>{product.name}</Table.Cell>
-                                <Table.Cell>{product.userName}</Table.Cell>
-                                <Table.Cell>{product.categoryName}</Table.Cell>
-                            </Table.Row>
-                        ))}
-
+                        <Table.Row key={product.id}>
+                            <Table.Cell><Link to={`/products/${product.id}`}>{product.name}</Link></Table.Cell>
+                            <Table.Cell>{product.userName}</Table.Cell>
+                            <Table.Cell>{product.categoryName}</Table.Cell>
+                            <Table.Cell>
+                                <Button onClick={() => handleAddToCart(product)}>Sepete Ekle</Button>
+                            </Table.Cell>
+                        </Table.Row>
+                    ))}
                 </Table.Body>
 
                 <Table.Footer>
