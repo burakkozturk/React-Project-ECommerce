@@ -5,6 +5,7 @@ import { Route , Routes } from 'react-router-dom'
 import ProductList from '../pages/ProductList'
 import ProductDetail from '../pages/ProductDetail'
 import CartDetail from '../pages/CartDetail'
+import CategoryList from '../pages/CategoryList'
 
 export default function Dashboard() {
   return (
@@ -26,6 +27,7 @@ export default function Dashboard() {
               <Route exact path='/products' Component={ProductList} />
               <Route path='/products/:id' Component={ProductDetail} />
               <Route path='/cart' Component={CartDetail} />
+              <Route path='/categories' Component={CategoryList} />
 
 
             </Routes>

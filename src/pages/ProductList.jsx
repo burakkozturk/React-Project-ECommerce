@@ -4,7 +4,6 @@ import ProductService from '../services/productService'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { AddToCart } from '../store/actions/cartActions'
-import { useSelector } from 'react-redux'
 
 
 export default function ProductList() {
@@ -16,7 +15,6 @@ export default function ProductList() {
         productService.getProducts().then(result => setProducts(result.data))
     }, [])
 
-    const cart = useSelector(state => state.cart);
 
     const handleAddToCart = (product) => {
         console.log("Ürün sepete eklendi:", product);

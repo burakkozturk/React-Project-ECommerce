@@ -6,6 +6,7 @@ import SignedIn from './SignedIn';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import CartItems from '../pages/CartItems';
+import logo from '../assets/logo.PNG';
 
 export default function Navi() {
   const [isAuthenticated, setisAuthenticated] = useState(false);
@@ -26,11 +27,15 @@ export default function Navi() {
     <div>
       <Menu inverted fixed='top' size='large'>
         <Container>
-          <Menu.Item name='home' />
-          <Menu.Item name='messages' />
+          <Menu.Item>
+            <img src={logo} alt="Logo" />
+          </Menu.Item>
+          <Menu.Item name='Ürünler' onClick={() => navigate('/products')} />
+          <Menu.Item name='Kategoriler' onClick={() => navigate('/categories')} />
+
         </Container>
         <Menu.Menu position='right'>
-          <CartItems /> {/* CartItems bileşenini burada ekledik */}
+          <CartItems />
           {cartItems.length > 0 && <CartSummary />}
           {isAuthenticated ? (
             <SignedIn signOut={handleSignOut} />
