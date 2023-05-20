@@ -1,9 +1,59 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Table, Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { RemoveFromCart } from '../store/actions/cartActions';
 
 export default function CartDetail() {
+  const cartItems = useSelector(state => state.cart.cartItems);
+  const dispatch = useDispatch();
+
+  const handleRemoveFromCart = (productId) => {
+    console.log("Ürünü Sil:", productId);
+    dispatch(RemoveFromCart(productId));
+  };
+
+  useEffect(() => {
+    console.log("Cart Items:", cartItems);
+  }, [cartItems]);
+
   return (
     <div>
-        Sepet Detayı
+      <h1>Sepet Detayı</h1>
+      <Table celled>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Ürün Adı</Table.HeaderCell>
+            <Table.HeaderCell>Ürün Fiyatı</Table.HeaderCell>
+            <Table.HeaderCell>Ürün Miktarı</Table.HeaderCell>
+            <Table.HeaderCell></Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+
+        <Table.Body>
+          {cartItems.length > 0 ? (
+            cartItems.map((cartItem) => (
+              <Table.Row key={cartItem.product.id}>
+                <Table.Cell>{cartItem.product.name}</Table.Cell>
+                <Table.Cell>{cartItem.product.price}</Table.Cell>
+                <Table.Cell>{cartItem.quantity}</Table.Cell>
+                <Table.Cell>
+                  <Button as={Link} to={`/products/${cartItem.product.id}`} primary>
+                    Ürünü İncele
+                  </Button>
+                  <Button onClick={() => handleRemoveFromCart(cartItem.product.id)} color="red">
+                    Sil
+                  </Button>
+                </Table.Cell>
+              </Table.Row>
+            ))
+          ) : (
+            <Table.Row>
+              <Table.Cell colSpan={4}>Sepetiniz boş</Table.Cell>
+            </Table.Row>
+          )}
+        </Table.Body>
+      </Table>
     </div>
-  )
+  );
 }

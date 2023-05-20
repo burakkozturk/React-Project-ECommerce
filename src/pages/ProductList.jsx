@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { AddToCart } from '../store/actions/cartActions'
 import { useSelector } from 'react-redux'
 
+
 export default function ProductList() {
     const dispatch = useDispatch()
     const [products, setProducts] = useState([])

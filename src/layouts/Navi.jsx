@@ -28,18 +28,16 @@ export default function Navi() {
         <Container>
           <Menu.Item name='home' />
           <Menu.Item name='messages' />
-          <Menu.Menu position='right'>
-            <CartItems />
-          </Menu.Menu>
-          <Menu.Menu position='right'>
-            {cartItems.length > 0 && <CartSummary />}
-            {isAuthenticated ? (
-              <SignedIn signOut={handleSignOut} />
-            ) : (
-              <SignedOut signIn={handleSignIn} />
-            )}
-          </Menu.Menu>
         </Container>
+        <Menu.Menu position='right'>
+          <CartItems /> {/* CartItems bileşenini burada ekledik */}
+          {cartItems.length > 0 && <CartSummary />}
+          {isAuthenticated ? (
+            <SignedIn signOut={handleSignOut} />
+          ) : (
+            <SignedOut signIn={handleSignIn} />
+          )}
+        </Menu.Menu>
       </Menu>
     </div>
   );

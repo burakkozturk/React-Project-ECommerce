@@ -9,9 +9,10 @@ export function AddToCart(product){
     }
 }
 
-export function RemoveFromCart(product){
+export const RemoveFromCart = (productId) => {
     return {
-        type : REMOVE_FROM_CART,
-        payload : product 
-    }
-}
+      type: REMOVE_FROM_CART,
+      payload: productId
+    };
+  };
+
