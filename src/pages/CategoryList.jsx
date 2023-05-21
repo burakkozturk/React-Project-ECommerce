@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Table} from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 import CategoryService from '../services/categoryService';
 import { Link } from 'react-router-dom';
 
@@ -23,9 +23,17 @@ export default function Categories() {
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
-        let categoryService = new CategoryService()
-        categoryService.getCategories().then(result => setCategories(result.data))
-    }, [])
+        let categoryService = new CategoryService();
+        categoryService.getCategories()
+            .then(result => {
+                setCategories(result.data);
+                console.log(result.data); // Kategorilerin veri yapısını kontrol etmek için
+            })
+            .catch(error => {
+                console.error('Hata:', error);
+            });
+    }, []);
+
 
 
 
@@ -45,7 +53,12 @@ export default function Categories() {
                 <Table.Body>
                     {categories.map((category) => (
                         <Table.Row key={category.id}>
-                            <Table.Cell><Link to={`/categories/${category.id}`}>{category.name}</Link></Table.Cell>
+                            <Table.Cell>
+                                <Link to={`/categories/${category.name}`}>
+                                    {category.name}
+                                </Link>
+
+                            </Table.Cell>
                         </Table.Row>
                     ))}
                 </Table.Body>

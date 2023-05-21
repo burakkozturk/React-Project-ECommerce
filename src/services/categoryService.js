@@ -8,4 +8,8 @@ export default class CategoryService {
   getCategoryById(id) {
     return axios.get("http://localhost:8080/api/category/" + id);
   }
+
+  getCategoryByName(name) {
+    return axios.get("http://localhost:8080/api/category?name=" + name);
+  }
 }

@@ -10,7 +10,7 @@ export default function ProductDetail() {
     //lifecycle hook
     useEffect(() => {
         let productService = new ProductService()
-        productService.getByProductId(id).then(result => SetProducts(result.data))
+        productService.getProductById(id).then(result => SetProducts(result.data))
     }, [])
 
     return (

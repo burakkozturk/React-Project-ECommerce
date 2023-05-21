@@ -1,32 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { Table } from 'semantic-ui-react';
+import React, { useEffect, useState } from 'react';
+import { Table } from 'semantic-ui-react'
 import CategoryService from '../services/categoryService';
+import { Link } from 'react-router-dom';
 
 export default function Categories() {
-  const [category, setCategory] = useState([]);
+    const [categories, setCategories] = useState([]);
 
-  useEffect(() => {
-    let categoryService = new CategoryService()
-    categoryService.getCategories().then(result => setCategory(result.data))
-  }, [])
+    useEffect(() => {
+        let categoryService = new CategoryService();
+        categoryService.getCategories()
+            .then(result => {
+                setCategories(result.data);
+                console.log(result.data); // Kategorilerin veri yapısını kontrol etmek için
+            })
+            .catch(error => {
+                console.error('Hata:', error);
+            });
+    }, []);
 
+    return (
+        <div>
+            <Table celled>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell>Kategori Adı</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
 
-  return (
-    <div>
-      <Table celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>Name</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>  
-          {category.map(category => (
-            <Table.Row key={category.id}>
-              <Table.Cell>{category.name}</Table.Cell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
-    </div>
-  );
+                <Table.Body>
+                    {categories.map((category) => (
+                        <Table.Row key={category.id}>
+                            <Table.Cell>
+                                <Link to={`/categories/${category.name}`}>
+                                    {category.name}
+                                </Link>
+                            </Table.Cell>
+                        </Table.Row>
+                    ))}
+                </Table.Body>
+            </Table>
+        </div>
+    );
 }
