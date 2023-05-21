@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Icon, Menu, Table, Button } from 'semantic-ui-react'
-import { useNavigate } from 'react-router-dom';
+import {Table} from 'semantic-ui-react'
 import CategoryService from '../services/categoryService';
 import { Link } from 'react-router-dom';
 
