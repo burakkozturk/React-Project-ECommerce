@@ -6,6 +6,7 @@ import ProductDetail from '../pages/ProductDetail';
 import CartDetail from '../pages/CartDetail';
 import CategoryList from '../pages/CategoryList';
 import CategoryDetail from '../pages/CategoryDetail';
+import Register from '../pages/Register';
 
 export default function Dashboard() {
   return (
@@ -23,6 +24,7 @@ export default function Dashboard() {
               <Route path="/cart" element={<CartDetail />} />
               <Route path="/categories" element={<CategoryList />} />
               <Route path="/categories/:name" element={<CategoryDetail />} />
+              <Route path="/register" element={<Register />} />
 
             </Routes>
           </Grid.Column>

@@ -1,26 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Menu } from 'semantic-ui-react';
-import CartSummary from './CartSummary';
-import SignedOut from './SignedOut';
-import SignedIn from './SignedIn';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import CartItems from '../pages/CartItems';
 import logo from '../assets/logo.PNG';
 
 export default function Navi() {
-  const [isAuthenticated, setisAuthenticated] = useState(false);
   const navigate = useNavigate();
 
-  const cartItems = useSelector(state => state.cart.cartItems) || [];
-
-  function handleSignOut(params) {
-    setisAuthenticated(false);
-    navigate('/');
-  }
-
-  function handleSignIn(params) {
-    setisAuthenticated(true);
+  function handleRegister() {
+    navigate('/register');
   }
 
   return (
@@ -32,16 +19,9 @@ export default function Navi() {
           </Menu.Item>
           <Menu.Item name='Ürünler' onClick={() => navigate('/products')} />
           <Menu.Item name='Kategoriler' onClick={() => navigate('/categories')} />
-
         </Container>
         <Menu.Menu position='right'>
-          <CartItems />
-          {cartItems.length > 0 && <CartSummary />}
-          {isAuthenticated ? (
-            <SignedIn signOut={handleSignOut} />
-          ) : (
-            <SignedOut signIn={handleSignIn} />
-          )}
+          <Menu.Item name='Kayıt Ol' onClick={handleRegister} />
         </Menu.Menu>
       </Menu>
     </div>
