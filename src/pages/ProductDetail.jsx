@@ -15,7 +15,6 @@ export default function ProductDetail() {
 
     return (
         <div>
-            {id}
             <Card.Group>
                 <Card fluid>
                     <Card.Content>

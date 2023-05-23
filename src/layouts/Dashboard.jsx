@@ -8,7 +8,6 @@ import CategoryList from '../pages/CategoryList';
 import CategoryDetail from '../pages/CategoryDetail';
 import Register from '../pages/Register';
 import AddProduct from '../pages/AddProduct'; // Yeni eklendi
-import UserList from '../pages/UserList';
 
 export default function Dashboard() {
   return (
