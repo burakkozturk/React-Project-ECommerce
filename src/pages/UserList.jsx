@@ -6,10 +6,18 @@ export default function UserList() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        let userService = new UserService()
-        userService.getUsers().then(result => setUsers(result.data))
-    }, [])
+        const fetchUsers = async () => {
+            try {
+                const userService = new UserService();
+                const response = await userService.getUsers();
+                setUsers(response.data);
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        };
 
+        fetchUsers();
+    }, []);
 
     return (
         <div>

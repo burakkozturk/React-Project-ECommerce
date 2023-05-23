@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Form, Button, Select } from 'semantic-ui-react';
+import { Form, Button, Select, Input } from 'semantic-ui-react';
 import CategoryService from '../services/categoryService';
+import ProductService from '../services/productService';
 
 export default function AddProduct() {
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [categoryId, setCategoryId] = useState('');
+  const [userId, setUserId] = useState('');
   const [categories, setCategories] = useState([]);
-  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -21,19 +22,7 @@ export default function AddProduct() {
       }
     };
 
-    const fetchUsers = async () => {
-      try {
-        // Kullanıcıları getiren bir işlev kullanılmalı
-        const response = await fetch('http://localhost:8080/api/users');
-        const data = await response.json();
-        setUsers(data);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
-
     fetchCategories();
-    fetchUsers();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -43,19 +32,30 @@ export default function AddProduct() {
     const newProduct = {
       name,
       categoryId,
+      userId,
     };
 
-    // Diğer işlemler...
+    try {
+      const productService = new ProductService();
+      const response = await productService.addProduct(newProduct);
 
-    // Örneğin, ürünü kaydetmek ve bir sonraki sayfaya yönlendirmek için:
-    // productApi.saveProduct(newProduct);
-    // navigate('/products');
+      console.log('Yeni ürün:', response.data); // Kaydedilen ürünü kontrol etmek için
+
+      // Kaydetme işlemi başarılı olduğunda bir sonraki sayfaya yönlendirilebilir
+      navigate('/products');
+    } catch (error) {
+      console.error('Error saving product:', error);
+    }
   };
 
-  const handleCategoryChange = (e) => {
-    const selectedCategoryId = e.target.value;
-    setCategoryId(selectedCategoryId);
-    console.log('Seçilen kategori ID:', selectedCategoryId);
+  const handleCategoryChange = (e, { value }) => {
+    setCategoryId(value);
+    console.log('Seçilen kategori ID:', value);
+  };
+
+  const handleUserIdChange = (e) => {
+    setUserId(e.target.value);
+    console.log('Kullanıcı ID:', e.target.value);
   };
 
   return (
@@ -68,25 +68,21 @@ export default function AddProduct() {
         </Form.Field>
         <Form.Field>
           <label>Kategori:</label>
-          <select value={categoryId} onChange={handleCategoryChange} required>
-            <option value="">Kategori Seçin</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
+          <Select
+            placeholder="Kategori Seçin"
+            options={categories.map((category) => ({
+              key: category.id,
+              value: category.id,
+              text: category.name,
+            }))}
+            value={categoryId}
+            onChange={handleCategoryChange}
+            required
+          />
         </Form.Field>
         <Form.Field>
-          <label>Kullanıcı:</label>
-          <select>
-            <option value="">Kullanıcı Seçin</option>
-            {users.map((user) => (
-              <option key={user.id} value={user.id}>
-                {user.name}
-              </option>
-            ))}
-          </select>
+          <label>Kullanıcı ID:</label>
+          <Input type="text" value={userId} onChange={handleUserIdChange} required />
         </Form.Field>
         <Button type="submit">Kaydet</Button>
       </Form>
