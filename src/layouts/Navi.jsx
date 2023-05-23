@@ -31,7 +31,6 @@ export default function Navi() {
 
         </Container>
         <Menu.Menu position='right'>
-          <Menu.Item name='User List' onClick={handleUserList} /> {/* Ürün Ekle butonu */}
 
           <Menu.Item name='Ürün Ekle' onClick={handleAddProduct} /> {/* Ürün Ekle butonu */}
           <Menu.Item name='Kayıt Ol' onClick={handleRegister} />

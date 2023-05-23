@@ -27,8 +27,7 @@ export default function Dashboard() {
               <Route path="/categories" element={<CategoryList />} />
               <Route path="/categories/:name" element={<CategoryDetail />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/add-product" element={<AddProduct />} /> {/* Yeni eklendi */}
-              <Route path="/userlist" element={<UserList />} /> {/* Yeni eklendi */}
+              <Route path="/add-product" element={<AddProduct />} />
 
             </Routes>
           </Grid.Column>

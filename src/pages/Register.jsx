@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import userService from '../services/userService';
+import UserService from '../services/userService';
 import { Form, Button } from 'semantic-ui-react'
 
 export default function RegisterForm() {
@@ -12,19 +12,21 @@ export default function RegisterForm() {
 
     const newUser = {
       name,
-      mail: email,
+      email,
       password
     };
 
     try {
-      await userService.registerUser(newUser);
-      console.log('Kullanıcı başarıyla kaydedildi.');
-      alert('Kullanıcı başarıyla kaydedildi.');
+      await UserService.registerUser(newUser);
+      const message = `Kullanıcı başarıyla kaydedildi.\nAd: ${newUser.name}\nE-posta: ${newUser.email}`;
+      console.log('Kullanıcı başarıyla kaydedildi. Email: ', newUser.email);
+      alert(message);
       // Başarılı kayıt işlemi tamamlandıktan sonra yapılacak işlemleri buraya ekleyebilirsiniz.
     } catch (error) {
       console.error('Kullanıcı kaydedilirken bir hata oluştu:', error);
     }
   };
+  
   return (
     <div>
       <h2>Kayıt Ol</h2>
@@ -35,7 +37,7 @@ export default function RegisterForm() {
         </Form.Field>
         <Form.Field>
           <label>E-posta:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input type="text" value={email || ""} onChange={(e) => setEmail(e.target.value)} required />
         </Form.Field>
         <Form.Field>
           <label>Şifre:</label>
@@ -45,5 +47,4 @@ export default function RegisterForm() {
       </Form>
     </div>
   );
-  
 }

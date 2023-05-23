@@ -23,7 +23,7 @@ export default function Categories() {
             <Table celled>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>Kategori Adı</Table.HeaderCell>
+                        <Table.HeaderCell textAlign="center">Kategori Adı</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
