@@ -15,6 +15,10 @@ export default function Navi() {
     navigate('/add-product');
   }
 
+  function handleUserList() {
+    navigate('/userlist');
+  }
+
   return (
     <div>
       <Menu inverted fixed='top' size='large'>
@@ -24,8 +28,11 @@ export default function Navi() {
           </Menu.Item>
           <Menu.Item as={Link} to='/products' name='Ürünler' />
           <Menu.Item as={Link} to='/categories' name='Kategoriler' />
+
         </Container>
         <Menu.Menu position='right'>
+          <Menu.Item name='User List' onClick={handleUserList} /> {/* Ürün Ekle butonu */}
+
           <Menu.Item name='Ürün Ekle' onClick={handleAddProduct} /> {/* Ürün Ekle butonu */}
           <Menu.Item name='Kayıt Ol' onClick={handleRegister} />
         </Menu.Menu>

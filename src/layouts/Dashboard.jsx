@@ -8,6 +8,7 @@ import CategoryList from '../pages/CategoryList';
 import CategoryDetail from '../pages/CategoryDetail';
 import Register from '../pages/Register';
 import AddProduct from '../pages/AddProduct'; // Yeni eklendi
+import UserList from '../pages/UserList';
 
 export default function Dashboard() {
   return (
@@ -27,6 +28,8 @@ export default function Dashboard() {
               <Route path="/categories/:name" element={<CategoryDetail />} />
               <Route path="/register" element={<Register />} />
               <Route path="/add-product" element={<AddProduct />} /> {/* Yeni eklendi */}
+              <Route path="/userlist" element={<UserList />} /> {/* Yeni eklendi */}
+
             </Routes>
           </Grid.Column>
         </Grid.Row>

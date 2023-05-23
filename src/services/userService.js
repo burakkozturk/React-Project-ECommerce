@@ -1,15 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 
-class UserService {
+export default class CategoryService {
   registerUser(userData) {
     return axios.post('http://localhost:8080/api/user', userData);
   }
-
+  
   getUsers() {
-    return axios.get('http://localhost:8080/api/users');
+    return axios.get('http://localhost:8080/api/user');
   }
-
-  // Diğer kullanıcı işlemleri metotları buraya eklenebilir
 }
 
-export default new UserService();
+

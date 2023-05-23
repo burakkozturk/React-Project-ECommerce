@@ -26,6 +26,8 @@ export default function ProductList() {
             <Table celled>
                 <Table.Header>
                     <Table.Row>
+                        <Table.HeaderCell>Ürün ID</Table.HeaderCell>
+
                         <Table.HeaderCell>Ürün Adı</Table.HeaderCell>
                         <Table.HeaderCell>Ürün Sahibi</Table.HeaderCell>
                         <Table.HeaderCell>Ürün Kategori</Table.HeaderCell>
@@ -36,6 +38,7 @@ export default function ProductList() {
                 <Table.Body>
                     {products?.length && products.map((product) => (
                         <Table.Row key={product.id}>
+                            <Table.Cell>{product.id}</Table.Cell>
                             <Table.Cell><Link to={`/products/${product.id}`}>{product.name}</Link></Table.Cell>
                             <Table.Cell>{product.userName}</Table.Cell>
                             <Table.Cell>{product.categoryName}</Table.Cell>
