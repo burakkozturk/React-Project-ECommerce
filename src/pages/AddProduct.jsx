@@ -11,6 +11,8 @@ export default function AddProduct() {
   const [userId, setUserId] = useState('');
   const [categories, setCategories] = useState([]);
 
+
+  
   useEffect(() => {
     const fetchCategories = async () => {
       try {
