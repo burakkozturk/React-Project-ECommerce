@@ -1,46 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { Button, Card, Image } from 'semantic-ui-react'
-import ProductService from '../services/productService'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Header, Segment, Image } from 'semantic-ui-react';
+import ProductService from '../services/productService';
 
 export default function ProductDetail() {
-    let { id } = useParams()
+  let { id } = useParams();
 
-    const [products, SetProducts] = useState({})
-    //lifecycle hook
-    useEffect(() => {
-        let productService = new ProductService()
-        productService.getProductById(id).then(result => SetProducts(result.data))
-    }, [])
+  const [product, setProduct] = useState({});
 
-    return (
-        <div>
-            <Card.Group>
-                <Card fluid>
-                    <Card.Content>
-                        <Image
-                            floated='right'
-                            size='mini'
-                            src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
-                        />
-                        <Card.Header>{products.name}</Card.Header>
-                        <Card.Meta>{products.categoryName}</Card.Meta>
-                        <Card.Description>
-                            <strong>{products.userName}</strong>  tarafından yapıldı...
-                        </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Button basic color='green'>
-                                Approve
-                            </Button>
-                            <Button basic color='red'>
-                                Decline
-                            </Button>
-                        </div>
-                    </Card.Content>
-                </Card>
-            </Card.Group>
+  // Lifecycle hook
+  useEffect(() => {
+    let productService = new ProductService();
+    productService.getProductById(id).then((result) => setProduct(result.data));
+  }, []);
+
+  return (
+    <Segment>
+      <div style={{ display: 'flex' }}>
+        <Image src={product.photoUrl} size="large" floated="left" />
+        <div style={{ marginLeft: '20px' }}>
+          <Header as="h1">{product.name}</Header>
+          <p style={{ marginTop: '100px' }}>{product.description}</p>
+          <h3 style={{ position: 'absolute', bottom: '10px', right: '10px', backgroundColor: 'yellow', borderRadius: '5px', padding: '5px' }}>{product.price} TL</h3>
         </div>
-    )
+      </div>
+    </Segment>
+  );
 }

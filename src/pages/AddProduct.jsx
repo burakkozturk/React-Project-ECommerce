@@ -9,10 +9,11 @@ export default function AddProduct() {
   const [name, setName] = useState('');
   const [categoryId, setCategoryId] = useState('');
   const [userId, setUserId] = useState('');
+  const [price, setPrice] = useState('');
+  const [description, setDescription] = useState('');
+  const [photoUrl, setPhotoUrl] = useState('');
   const [categories, setCategories] = useState([]);
 
-
-  
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -35,6 +36,9 @@ export default function AddProduct() {
       name,
       categoryId,
       userId,
+      price,
+      description,
+      photoUrl,
     };
 
     try {
@@ -58,6 +62,21 @@ export default function AddProduct() {
   const handleUserIdChange = (e) => {
     setUserId(e.target.value);
     console.log('Kullanıcı ID:', e.target.value);
+  };
+
+  const handlePriceChange = (e) => {
+    setPrice(e.target.value);
+    console.log('Fiyat:', e.target.value);
+  };
+
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);
+    console.log('Açıklama:', e.target.value);
+  };
+
+  const handlePhotoUrlChange = (e) => {
+    setPhotoUrl(e.target.value);
+    console.log('Fotoğraf URL:', e.target.value);
   };
 
   return (
@@ -85,6 +104,18 @@ export default function AddProduct() {
         <Form.Field>
           <label>Kullanıcı ID:</label>
           <Input type="text" value={userId} onChange={handleUserIdChange} required />
+        </Form.Field>
+        <Form.Field>
+          <label>Fiyat:</label>
+          <Input type="number" value={price} onChange={handlePriceChange} required />
+        </Form.Field>
+        <Form.Field>
+          <label>Açıklama:</label>
+          <textarea value={description} onChange={handleDescriptionChange} required />
+        </Form.Field>
+        <Form.Field>
+          <label>Fotoğraf URL:</label>
+          <Input type="text" value={photoUrl} onChange={handlePhotoUrlChange} required />
         </Form.Field>
         <Button type="submit">Kaydet</Button>
       </Form>
