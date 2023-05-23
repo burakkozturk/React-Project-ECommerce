@@ -12,4 +12,5 @@ export default class CategoryService {
   getCategoryByName(name) {
     return axios.get("http://localhost:8080/api/category?name=" + name);
   }
+  
 }
