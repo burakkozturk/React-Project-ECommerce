@@ -7,6 +7,7 @@ import CartDetail from '../pages/CartDetail';
 import CategoryList from '../pages/CategoryList';
 import CategoryDetail from '../pages/CategoryDetail';
 import Register from '../pages/Register';
+import AddProduct from '../pages/AddProduct'; // Yeni eklendi
 
 export default function Dashboard() {
   return (
@@ -25,7 +26,7 @@ export default function Dashboard() {
               <Route path="/categories" element={<CategoryList />} />
               <Route path="/categories/:name" element={<CategoryDetail />} />
               <Route path="/register" element={<Register />} />
-
+              <Route path="/add-product" element={<AddProduct />} /> {/* Yeni eklendi */}
             </Routes>
           </Grid.Column>
         </Grid.Row>

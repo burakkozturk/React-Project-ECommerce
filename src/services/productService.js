@@ -13,4 +13,7 @@ export default class ProductService {
     return axios.get("http://localhost:8080/api/products?categoryName=" + categoryName);
   }
   
+  addProduct(productData) {
+    return axios.post('http://localhost:8080/api/products', productData);
+  }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Menu } from 'semantic-ui-react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.PNG';
 
 export default function Navi() {
@@ -10,17 +10,23 @@ export default function Navi() {
     navigate('/register');
   }
 
+
+  function handleAddProduct() {
+    navigate('/add-product');
+  }
+
   return (
     <div>
       <Menu inverted fixed='top' size='large'>
         <Container>
-          <Menu.Item>
+          <Menu.Item as={Link} to='/'>
             <img src={logo} alt="Logo" />
           </Menu.Item>
-          <Menu.Item name='Ürünler' onClick={() => navigate('/products')} />
-          <Menu.Item name='Kategoriler' onClick={() => navigate('/categories')} />
+          <Menu.Item as={Link} to='/products' name='Ürünler' />
+          <Menu.Item as={Link} to='/categories' name='Kategoriler' />
         </Container>
         <Menu.Menu position='right'>
+          <Menu.Item name='Ürün Ekle' onClick={handleAddProduct} /> {/* Ürün Ekle butonu */}
           <Menu.Item name='Kayıt Ol' onClick={handleRegister} />
         </Menu.Menu>
       </Menu>
