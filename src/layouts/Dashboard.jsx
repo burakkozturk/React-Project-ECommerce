@@ -14,10 +14,10 @@ export default function Dashboard() {
     <div>
       <Grid>
         <Grid.Row>
-          <Grid.Column width={4}>
+          <Grid.Column width={3}>
             <CategoryList />
           </Grid.Column>
-          <Grid.Column width={12}>
+          <Grid.Column width={13}>
             <Routes>
               <Route path="/" element={<ProductList />} />
               <Route path="/products" element={<ProductList />} />

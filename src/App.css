@@ -1,7 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 .App {
   text-align: center;
 }
 
 .ui.main.container{
   margin-top: 6em;
+}
+
+.custom-font{
+  font-family: 'Lobster', cursive;
+  font-size:1.1em;
+}
+
+.button-area{
+  margin-top:20px;
 }

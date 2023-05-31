@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Menu } from 'semantic-ui-react';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../assets/logo.PNG';
 import CartSummary from "../layouts/CartSummary";
 
 
@@ -22,12 +21,12 @@ export default function Navi() {
 
   return (
     <div>
-      <Menu inverted fixed='top' size='large'>
-        <Container>
-          <Menu.Item as={Link} to='/'>
-            <img src={logo} alt="Logo" />
+      <Menu class="ui menu secondary menu" inverted fixed='top' size='massive'>
+        <Container >
+          <Menu.Item as={Link} to='/' className="active red item custom-font">
+            Emek Pazarı
           </Menu.Item>
-          <Menu.Item as={Link} to='/products' name='Ürünler' />
+          <Menu.Item class="item " as={Link} to='/products' name='Ürünler' />
           <Menu.Item as={Link} to='/categories' name='Kategoriler' />
 
         </Container>
