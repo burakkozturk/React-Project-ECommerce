@@ -1,15 +1,38 @@
 import axios from 'axios';
 
-class UserService {
-  registerUser(userData) {
-    return axios.post('http://localhost:8080/api/user', userData);
+const API_BASE_URL = 'http://localhost:8080/api';
+
+const registerUser = async (user) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/user/register`, user, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data);
   }
+};
 
-  getUsers() {
-    return axios.get('http://localhost:8080/api/user');
+const loginUser = async (email, password) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/user/login`, { email, password }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data);
   }
+};
 
-  // Diğer kullanıcı işlemleri metotları buraya eklenebilir
-}
+const UserService = {
+  registerUser,
+  loginUser
+};
 
-export default new UserService();
+export default UserService;

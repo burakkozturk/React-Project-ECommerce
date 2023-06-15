@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid } from 'semantic-ui-react';
 import { Route, Routes } from 'react-router-dom';
 import ProductList from '../pages/ProductList';
@@ -6,10 +6,20 @@ import ProductDetail from '../pages/ProductDetail';
 import CartDetail from '../pages/CartDetail';
 import CategoryList from '../pages/CategoryList';
 import CategoryDetail from '../pages/CategoryDetail';
-import Register from '../pages/Register';
-import AddProduct from '../pages/AddProduct'; // Yeni eklendi
+import RegisterForm from '../pages/RegisterForm';
+import AddProduct from '../pages/AddProduct';
+import LoginForm from '../pages/LoginForm';
+import ProfilePage from '../pages/ProfilePage';
 
 export default function Dashboard() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
+
+  const handleLogin = (name) => {
+    setLoggedIn(true);
+    setUsername(name);
+  };
+
   return (
     <div>
       <Grid>
@@ -25,9 +35,22 @@ export default function Dashboard() {
               <Route path="/cart" element={<CartDetail />} />
               <Route path="/categories" element={<CategoryList />} />
               <Route path="/categories/:name" element={<CategoryDetail />} />
-              <Route path="/register" element={<Register />} />
+              <Route path="/register" element={<RegisterForm />} />
               <Route path="/add-product" element={<AddProduct />} />
-
+              <Route
+                path="/login"
+                element={<LoginForm onLogin={handleLogin} />}
+              />
+              <Route
+                path="/profile"
+                element={
+                  loggedIn ? (
+                    <ProfilePage username={username} />
+                  ) : (
+                    <LoginForm onLogin={handleLogin} />
+                  )
+                }
+              />
             </Routes>
           </Grid.Column>
         </Grid.Row>
