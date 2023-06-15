@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Image } from 'semantic-ui-react';
+import { Table, Button, Image, Icon } from 'semantic-ui-react';
 import ProductService from '../services/productService';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -23,7 +23,11 @@ export default function ProductList() {
 
   const resizeImage = (imageUrl) => {
     // Resim URL'sini al ve boyutlandır
-    return `${imageUrl}?w=${MAX_IMAGE_SIZE}&h=${MAX_IMAGE_SIZE}&fit=crop`;
+    const resizedUrl = new URL(imageUrl);
+    resizedUrl.searchParams.set('w', MAX_IMAGE_SIZE);
+    resizedUrl.searchParams.set('h', MAX_IMAGE_SIZE);
+    resizedUrl.searchParams.set('fit', 'crop');
+    return resizedUrl.toString();
   };
 
   return (
@@ -36,6 +40,8 @@ export default function ProductList() {
                 <Image
                   src={resizeImage(product.photoUrl)}
                   alt={product.name}
+                  size="tiny"
+                  rounded
                 />
               </div>
               <div className="content">
@@ -49,20 +55,14 @@ export default function ProductList() {
                   {product.userName} tarafından satılıyor.
                 </div>
               </div>
-              <div class="button-area" className="extra content">
+              <div className="extra content">
                 <Link to={`/products/${product.id}`}>
-                  <Button onClick={() => handleAddToCart(product)}>
-                    Ürünü İncele
+                  <Button primary>
+                    <Icon name="eye" /> İncele
                   </Button>
                 </Link>
                 <Button onClick={() => handleAddToCart(product)}>
-                  Sepete Ekle
-                </Button>
-                <Button
-                  class="last-button"
-                  onClick={() => handleAddToCart(product)}
-                >
-                  Favorilere Ekle
+                  <Icon name="cart" /> 
                 </Button>
               </div>
             </div>

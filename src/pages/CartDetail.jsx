@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Table, Button } from 'semantic-ui-react';
+import { Table, Button, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { RemoveFromCart } from '../store/actions/cartActions';
 
@@ -17,12 +17,21 @@ export default function CartDetail() {
     console.log("Cart Items:", cartItems);
   }, [cartItems]);
 
+  const calculateTotalPrice = () => {
+    let totalPrice = 0;
+    cartItems.forEach(cartItem => {
+      totalPrice += cartItem.product.price * cartItem.quantity;
+    });
+    return totalPrice.toFixed(2); // İki basamaklı ondalık olarak formatlanmış sepet toplamını döndürür
+  };
+
   return (
     <div>
       <h1>Sepet Detayı</h1>
       <Table celled>
         <Table.Header>
           <Table.Row>
+            <Table.HeaderCell>Fotoğraf</Table.HeaderCell>
             <Table.HeaderCell>Ürün Adı</Table.HeaderCell>
             <Table.HeaderCell>Ürün Fiyatı</Table.HeaderCell>
             <Table.HeaderCell>Ürün Miktarı</Table.HeaderCell>
@@ -34,6 +43,9 @@ export default function CartDetail() {
           {cartItems.length > 0 ? (
             cartItems.map((cartItem) => (
               <Table.Row key={cartItem.product.id}>
+                <Table.Cell>
+                  <Image src={cartItem.product.photoUrl} size="tiny" rounded />
+                </Table.Cell>
                 <Table.Cell>{cartItem.product.name}</Table.Cell>
                 <Table.Cell>{cartItem.product.price}</Table.Cell>
                 <Table.Cell>{cartItem.quantity}</Table.Cell>
@@ -49,10 +61,23 @@ export default function CartDetail() {
             ))
           ) : (
             <Table.Row>
-              <Table.Cell colSpan={4}>Sepetiniz boş</Table.Cell>
+              <Table.Cell colSpan={5}>Sepetiniz boş</Table.Cell>
             </Table.Row>
           )}
         </Table.Body>
+
+        {cartItems.length > 0 && (
+          <Table.Footer>
+            <Table.Row>
+              <Table.HeaderCell colSpan={4} textAlign="right">
+                Toplam:
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                {calculateTotalPrice()} TL
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Footer>
+        )}
       </Table>
     </div>
   );
