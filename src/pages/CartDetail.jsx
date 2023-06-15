@@ -76,6 +76,13 @@ export default function CartDetail() {
                 {calculateTotalPrice()} TL
               </Table.HeaderCell>
             </Table.Row>
+            <Table.Row>
+              <Table.HeaderCell colSpan={5} textAlign="right">
+                <Button color="teal" onClick={() => { /* Ödeme sayfasına yönlendirme işlemleri burada yapılacak */ }}>
+                  Ödemeye Git
+                </Button>
+              </Table.HeaderCell>
+            </Table.Row>
           </Table.Footer>
         )}
       </Table>

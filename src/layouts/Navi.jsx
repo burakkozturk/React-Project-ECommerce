@@ -36,7 +36,7 @@ const Navi = () => {
             Emek Pazarı
           </Menu.Item>
           <Menu.Item className="item" as={Link} to='/products' name='Ürünler' />
-          <Menu.Item as={Link} to='/categories' name='Kategoriler' />
+          <Menu.Item as={Link} to='/categoryList' name='Kategoriler' />
         </Container>
         <Menu.Menu position='right'>
           <CartSummary /> {/* Sepet özeti */}
