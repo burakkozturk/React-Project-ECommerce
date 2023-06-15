@@ -37,7 +37,7 @@
             products.map((product) => (
               <div className="card" key={product.id}>
                 <div className="image">
-                  <Image
+                  <Image style={{ width:"300px", height:"300px" }}
                     src={resizeImage(product.photoUrl)}
                     alt={product.name}
                     size="tiny"

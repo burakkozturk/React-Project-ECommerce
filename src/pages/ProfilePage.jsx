@@ -48,8 +48,8 @@ const ProfilePage = ({ name }) => {
         {products?.length &&
           products.map((product) => (
             <div className="card" key={product.id}>
-              <div className="image">
-                <Image src={product.photoUrl} alt={product.name} />
+              <div className="image" >
+                <Image src={product.photoUrl} style={{ width:"300px", height:"300px" }} alt={product.name} />
               </div>
               <div className="content">
                 <div className="header">
@@ -65,7 +65,7 @@ const ProfilePage = ({ name }) => {
             </div>
           ))}
       </div>
-      <Button onClick={handleAddProduct} color="green">
+      <Button style={{ margin:"50px" }} onClick={handleAddProduct} color="green">
         Ürün Ekle
       </Button>
     </div>
