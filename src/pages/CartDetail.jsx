@@ -44,7 +44,7 @@ export default function CartDetail() {
             cartItems.map((cartItem) => (
               <Table.Row key={cartItem.product.id}>
                 <Table.Cell>
-                  <Image src={cartItem.product.photoUrl} size="tiny" rounded />
+                  <Image src={cartItem.product.photoUrl} style={{ width: "80px", height: "80px" }}/>
                 </Table.Cell>
                 <Table.Cell>{cartItem.product.name}</Table.Cell>
                 <Table.Cell>{cartItem.product.price}</Table.Cell>

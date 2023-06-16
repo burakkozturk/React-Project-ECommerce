@@ -13,27 +13,18 @@ const ProfilePage = ({ name }) => {
         const productService = new ProductService();
         const response = await productService.getProducts();
         const productList = response.data;
-        const shuffledProducts = shuffleArray(productList);
-        const randomProducts = shuffledProducts.slice(0, 3); // Rastgele üç ürünü al
-        setProducts(randomProducts);
+        
+        // Kullanıcının ismi ile eşleşen ürünleri filtreleyin
+        const userProducts = productList.filter((product) => product.userName === name);
+        
+        setProducts(userProducts);
       } catch (error) {
         console.log('Ürünleri getirirken bir hata oluştu:', error);
       }
     };
 
     fetchProducts();
-  }, []);
-
-
-  // Dizi elemanlarını rastgele karıştıran fonksiyon
-  const shuffleArray = (array) => {
-    const shuffledArray = [...array];
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-    }
-    return shuffledArray;
-  };
+  }, [name]);
 
   const handleAddProduct = () => {
     // /add-product sayfasına yönlendir
@@ -45,11 +36,11 @@ const ProfilePage = ({ name }) => {
       <h1>Hoş geldiniz, {name}!</h1>
       <h3>Ürünleriniz</h3>
       <div className="ui link cards">
-        {products?.length &&
+        {products.length > 0 ? (
           products.map((product) => (
             <div className="card" key={product.id}>
-              <div className="image" >
-                <Image src={product.photoUrl} style={{ width:"300px", height:"300px" }} alt={product.name} />
+              <div className="image">
+                <Image src={product.photoUrl} alt={product.name} style={{ width: "300px", height: "300px" }} />
               </div>
               <div className="content">
                 <div className="header">
@@ -63,9 +54,12 @@ const ProfilePage = ({ name }) => {
                 </div>
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <div>Henüz ürününüz bulunmamaktadır.</div>
+        )}
       </div>
-      <Button style={{ margin:"50px" }} onClick={handleAddProduct} color="green">
+      <Button style={{ margin: "50px" }} onClick={handleAddProduct} color="green">
         Ürün Ekle
       </Button>
     </div>
