@@ -1,5 +1,3 @@
-// Login.js
-
 import React, { useState } from 'react';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -18,13 +16,25 @@ const Login = () => {
       const userData = await UserService.loginUser(email, password);
       setLoggedInUser(userData.name);
       navigate('/profile'); // Giriş yapıldıktan sonra profil sayfasına yönlendir
+      // Giriş başarılı olduğunda bir bildirim göster
+      window.alert('Giriş başarılı!');
     } catch (error) {
       setError('Giriş işlemi başarısız. Lütfen tekrar deneyin.');
     }
   };
 
+  const handleLogout = () => {
+    setLoggedInUser('');
+    navigate('/'); // Ana sayfaya yönlendir
+  };
+
   if (loggedInUser) {
-    return <ProfilePage name={loggedInUser} />;
+    return (
+      <>
+        <ProfilePage name={loggedInUser} />
+        <Button color="red" onClick={handleLogout}>Çıkış Yap</Button>
+      </>
+    );
   }
 
   return (

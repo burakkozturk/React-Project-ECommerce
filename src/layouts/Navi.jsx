@@ -6,7 +6,6 @@ import CartSummary from "../layouts/CartSummary";
 const Navi = () => {
   const navigate = useNavigate();
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
 
   const handleProfile = () => {
@@ -15,6 +14,7 @@ const Navi = () => {
 
   const handleLogout = () => {
     setLoggedInUser(null);
+    setUserId(null);
     navigate('/products');
   };
 
@@ -23,10 +23,9 @@ const Navi = () => {
   };
 
   const handleLogin = () => {
-    setLoggedIn(true);
+    setLoggedInUser('John Doe');
     setUserId(1);
   };
-  
 
   return (
     <div>

@@ -20,4 +20,8 @@ export default class ProductService {
   addProduct(productData) {
     return axios.post('http://localhost:8080/api/products', productData);
   }
+
+  deleteProduct(productId) {
+    return axios.delete('http://localhost:8080/api/products/' + productId);
+  }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProductService from '../services/productService';
-import { Table, Button, Image } from 'semantic-ui-react';
+import { Button, Image } from 'semantic-ui-react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const ProfilePage = ({ name }) => {
@@ -13,10 +13,10 @@ const ProfilePage = ({ name }) => {
         const productService = new ProductService();
         const response = await productService.getProducts();
         const productList = response.data;
-        
+
         // Kullanıcının ismi ile eşleşen ürünleri filtreleyin
         const userProducts = productList.filter((product) => product.userName === name);
-        
+
         setProducts(userProducts);
       } catch (error) {
         console.log('Ürünleri getirirken bir hata oluştu:', error);
@@ -31,6 +31,17 @@ const ProfilePage = ({ name }) => {
     navigate('/add-product');
   };
 
+  const handleDeleteProduct = async (productId) => {
+    try {
+      const productService = new ProductService();
+      await productService.deleteProduct(productId);
+      // Ürünü listeden kaldır
+      setProducts((prevProducts) => prevProducts.filter((product) => product.id !== productId));
+    } catch (error) {
+      console.log('Ürünü silerken bir hata oluştu:', error);
+    }
+  };
+
   return (
     <div>
       <h1>Hoş geldiniz, {name}!</h1>
@@ -40,7 +51,7 @@ const ProfilePage = ({ name }) => {
           products.map((product) => (
             <div className="card" key={product.id}>
               <div className="image">
-                <Image src={product.photoUrl} alt={product.name} style={{ width: "300px", height: "300px" }} />
+                <Image src={product.photoUrl} alt={product.name} style={{ width: '300px', height: '300px' }} />
               </div>
               <div className="content">
                 <div className="header">
@@ -52,6 +63,9 @@ const ProfilePage = ({ name }) => {
                 <div className="description">
                   {name} tarafından satılıyor.
                 </div>
+                <Button color="red" onClick={() => handleDeleteProduct(product.id)}>
+                  Ürünü Sil
+                </Button>
               </div>
             </div>
           ))
@@ -59,7 +73,7 @@ const ProfilePage = ({ name }) => {
           <div>Henüz ürününüz bulunmamaktadır.</div>
         )}
       </div>
-      <Button style={{ margin: "50px" }} onClick={handleAddProduct} color="green">
+      <Button style={{ margin: '50px' }} onClick={handleAddProduct} color="green">
         Ürün Ekle
       </Button>
     </div>
