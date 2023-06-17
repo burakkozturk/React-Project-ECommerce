@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Table, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 import CategoryService from '../services/categoryService';
 import ProductService from '../services/productService';
+import { Table, Button, Image, Icon } from 'semantic-ui-react';
+import { useDispatch } from 'react-redux';
+import { AddToCart } from '../store/actions/cartActions';
 
 export default function CategoryDetail() {
     const { name } = useParams();
-    const [products, setProducts] = useState([]);
     const [category, setCategory] = useState([]);
+    const dispatch = useDispatch();
+    const [products, setProducts] = useState([]);
 
 
+    const MAX_IMAGE_SIZE = 300; // Maksimum fotoğraf boyutu (genişlik veya yükseklik)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,41 +42,62 @@ export default function CategoryDetail() {
         fetchData();
     }, [name]);
 
+    const handleAddToCart = (product) => {
+        console.log("Ürün sepete eklendi:", product);
+        dispatch(AddToCart({ product: product, quantity: 1 }));
+    };
+
+    const resizeImage = (imageUrl) => {
+        // Resim URL'sini al ve boyutlandır
+        const resizedUrl = new URL(imageUrl);
+        resizedUrl.searchParams.set('w', MAX_IMAGE_SIZE);
+        resizedUrl.searchParams.set('h', MAX_IMAGE_SIZE);
+        resizedUrl.searchParams.set('fit', 'crop');
+        return resizedUrl.toString();
+    };
+
     return (
         <div>
-            {products && products.length > 0 ? (
-                <div>
-                    <h1>Kategoriye Ait Ürünler</h1>
-                    <Table celled>
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.HeaderCell>Fotoğraf</Table.HeaderCell>
-                                <Table.HeaderCell>Ürün Adı</Table.HeaderCell>
-                                <Table.HeaderCell>Ürün Sahibi</Table.HeaderCell>
-                                <Table.HeaderCell>Fiyat</Table.HeaderCell>
-                                <Table.HeaderCell>Kategori</Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                            {products.map((product) => (
-                                <Table.Row key={product.id}>
-                                    <Table.Cell>
-                                        <Image src={product.photoUrl} size="tiny" rounded />
-                                    </Table.Cell>
-                                    <Table.Cell>
-                                        <Link to={`/products/${product.id}`}>{product.name}</Link>
-                                    </Table.Cell>
-                                    <Table.Cell>{product.userName}</Table.Cell>
-                                    <Table.Cell>{product.price}</Table.Cell>
-                                    <Table.Cell>{product.categoryName}</Table.Cell>
-                                </Table.Row>
-                            ))}
-                        </Table.Body>
-                    </Table>
-                </div>
-            ) : (
-                <p>Kategoriye ait ürün bulunamadı.</p>
-            )}
+            <h1>{category.name} Kategorisine Ait Ürünler</h1>
+            <div className="ui link cards">
+                {/* Rest of the code */}
+            </div>
+            <div className="ui link cards" style={{margin:"15px"}}>
+                {products?.length &&
+                    products.map((product) => (
+                        <div className="card" key={product.id}>
+                            <div className="image">
+                                <Image style={{ width: "300px", height: "300px" }}
+                                    src={resizeImage(product.photoUrl)}
+                                    alt={product.name}
+                                    size="tiny"
+                                    rounded
+                                />
+                            </div>
+                            <div className="content">
+                                <div className="header">
+                                    <Link to={`/products/${product.id}`}>{product.name}</Link>
+                                </div>
+                                <div className="meta">
+                                    <span className="category">{product.categoryName}</span>
+                                </div>
+                                <div className="description">
+                                    {product.userName} tarafından satılıyor.
+                                </div>
+                            </div>
+                            <div className="extra content">
+                                <Link to={`/products/${product.id}`}>
+                                    <Button primary>
+                                        <Icon name="eye" /> İncele
+                                    </Button>
+                                </Link>
+                                <Button onClick={() => handleAddToCart(product)}>
+                                    <Icon name="cart" />
+                                </Button>
+                            </div>
+                        </div>
+                    ))}
+            </div>
         </div>
     );
 }
